@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 1. 프로젝트 개요
 본 프로젝트는 개발 워크스테이션 구축 미션의 일환으로, 리눅스 터미널 CLI 기반의 기본 조작, 파일 및 디렉토리 권한 변경, 그리고 Docker 환경 구축 및 관리를 실습하고 검증한 기술 문서입니다.
 
@@ -178,4 +179,32 @@ root@9f8050359d4a:/# exit
 PS C:\Users\User\practice> docker rm volume-test-container
 PS C:\Users\User\practice> docker run --name volume-verify-container -v my-volume:/data ubuntu cat /data/persistent.txt
 Hello Docker Volume Persistence!
+```
 
+## 🛠️ 추가 실습 로그 및 개념 정리 보고서
+
+### 1. 컨테이너 및 이미지 목록 확인 (항목 #5 보완)
+- 명령어 실행 로그:
+  - `docker images` -> my-web-server 및 nginx 이미지 정상 빌드/조회 확인
+  - `docker ps -a` -> 컨테이너 구동 상태 확인 완료
+
+### 2. Git 원격 저장소 연동 확인 (항목 #9 보완)
+- 명령어 실행 로그:
+  - `git remote -v` -> origin https://github.com/thdus-cmyk/ai-codyssey.git 연결 확인
+
+### 3. 디렉토리 구조 및 설계 기준 (항목 #10 보완)
+- 📁 practice/
+  - Dockerfile: 웹서버(Nginx) 커스텀 이미지를 빌드하기 위한 설정 파일
+  - README.md: 실습 과정, 명령어 로그 및 트러블슈팅 보고서
+  - site/index.html: 바인드 마운트를 통해 웹서버에 실시간 반영될 HTML 소스 파일
+
+### 4. 핵심 기술 개념 설명 (항목 #12, #13, #14, #15 보완)
+- 이미지 vs 컨테이너: 이미지는 프로그램을 실행하기 위한 읽기 전용 '설계도'이며, 컨테이너는 그 설계도를 바탕으로 실제로 실행되어 동작하는 '독립된 실행 공간'입니다.
+- 포트 포워딩 원리: 호스트 컴퓨터의 포트(예: 8080)와 컨테이너 내부의 포트(예: 80)를 연결(-p 8080:80)하여, 외부 네트워크에서 컨테이너 내부 서비스에 접근할 수 있게 만듭니다.
+- 권한 표기법 (예: 755): 8진수 표기법으로, 소유자(읽기·쓰기·실행=7), 그룹(읽기·실행=5), 기타 사용자(읽기·실행=5)의 권한 범위를 뜻합니다.
+
+### 5. 데이터 백업 및 트러블슈팅 (항목 #17, #18 보완)
+- 데이터 백업 정책: Docker 볼륨(my-volume)에 저장된 중요 데이터는 주기적으로 호스트 경로에 tar 압축 형태로 백업하여 데이터 유실을 방지합니다.
+- 트러블슈팅 사례:
+  - 문제 상황: Git 푸시 시 원격 저장소와의 히스토리 충돌(Non-fast-forward) 발생
+  - 조치 내용: --force 옵션을 활용하여 로컬의 최신 작업물 기준으로 원격 저장소를 안전하게 동기화 완료
